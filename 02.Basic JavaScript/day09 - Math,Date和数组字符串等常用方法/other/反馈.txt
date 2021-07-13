@@ -1,0 +1,19 @@
+1.简单类型和复杂类型作为函数的参数
+
+function fn(a,b) {
+  a = a + 1;
+  b = b + 2;
+}
+
+var x = 1;
+var y = 2
+
+fn(x,y);
+
+
+var p = Person('zs',18,1000);
+
+var p1 = p;
+
+p1.name = 'ls';
+console.log(p.name)

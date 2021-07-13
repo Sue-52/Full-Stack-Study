@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    // 提示用户输入班级人数,求总成绩,平均值,最高分,最低分(扩展)
+
+    // 请输入班级总人数
+    var perCounts = parseInt( prompt("请输入班级人数:"));
+
+    var perScores = [];
+
+    for (var i = 0; i < perCounts; i++) {
+      perScores[perScores.length] = parseFloat(prompt("请输入第"+ (i+1) + '个同学的成绩:'));
+    }
+
+    // console.log(perScores);
+
+    // 求总成绩  平均值 最高分 最低分
+    var sumScore = 0;
+    var avgScore = 0;
+    var maxScore = perScores[0];
+    var minScore = perScores[0];
+
+    for (var i = 0; i < perScores.length; i++) {
+      sumScore += perScores[i];
+
+      if (perScores[i] > maxScore) {
+        maxScore = perScores[i];
+      }
+
+      if (perScores[i] < minScore) {
+        minScore = perScores[i];
+      }
+    }
+
+    alert("总分为:" + sumScore + ",平均值为:" + sumScore / perScores.length + ",最大值为:" + maxScore + ",最小值为:" + minScore );
+
+
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

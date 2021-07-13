@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    // 需求: 现在声明两个变量,第一个变量为num1,值为5,第二个变量为num2,值为6,请实现 两个变量值的交换
+    //       让num1为6  让num2为5;
+
+
+    // 方案一(开发中最常用的思路):
+    // 思路: 
+        // 找一个空变量 来作为第三方容器
+
+    // 代码: 
+      // var num1 = 5;
+      // var num2 = 6;
+      // 1.声明一个空的变量
+      // var kong = null;
+      // 2.把num1的值赋值给空变量
+      // kong = num1; //5
+      // console.log(kong);
+      // 3.把num2的值赋值给num1
+      // num1 = num2; // 6
+
+      // 4.把空变量的值赋值给num2
+      // num2 = kong; //5
+      // 5.打印num1 和num2
+      // console.log(num1, num2);
+
+
+      // 注意: 1.先把注释写上
+          //  2.补代码
+          // 3.把注释和代码都删掉 先写注释 再写代码
+
+
+    // 方案二(只适用于变量为数字的情况):
+      // 思路:
+        // 声明两个变量 第一个变量num1 = 5,第二个变量 num2 = 6;
+        // 给num1重新赋值为num1+num2  请问大家num1现在多少了? 5+6 =11; 请问大家num2 为6
+        // 让num1-num2 赋值给num2 =  11 - 6 = 5;
+        // 让num1 -num2 赋值给num1 = 11 - 5 = 6;
+
+      // 步骤: 
+      // 1.声明两个变量
+      var num1 = 5;
+      var num2 = 6;
+      // 2.给num1重新赋值为num1与num2的和
+      num1 = num1 + num2;
+      // 3.给num2重新赋值为num1与num2的差
+      num2 = num1 - num2;
+      // 4.给num1重新赋值为num1与num2的差
+      num1 = num1 - num2;
+      // 5.打印结果
+      console.log(num1, num2);
+
+      
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    // 需求:  7.接收用户输入的用户名和密码，
+    //          若用户名为 “admin” ,密码为 “123456” ,
+    //          提示用户登录成功!  
+    //          否则，让用户是指输入正确为止！
+
+
+    // 分析:
+    // 接收用户输入的用户名和密码(页面刚打开 就提示用户输入用户名和密码  prompt)
+    // 把用户的用户名和密码存储下来
+    // 判断一下 用户的用户名和密码 是不是 admin 和123456
+    // 如果不是  让用户是指输入正确为止！
+    // 最后输入正确了 跳出循环 打出一句话  登陆成功
+
+
+    // 代码: 
+    // 用户在网页中输入的任何数据都是字符串
+    // 1.写一个do while 循环
+    do {
+      // 2.在do的大括号中  定义第一个变量 用户名 用来接收 用户输入的用户名
+      var username = prompt("请输入您的用户名");
+      // 3.在do的大括号中  定义第二个变量 密码  用来接收 用户输入的密码
+      var password = prompt("请输入您的密码");
+      // 4. 判断 密码和用户名 其中有一个输入错误 那么就重新输入
+    } while (username != "admin" || password != "123456");
+
+
+    // 用户名  a  密码: 123456
+    // 用户名 admin 密码是 111111
+
+// 5. 如果用户输入的用户名和密码 admin 和123456 那么就提示  用户登录成功! 
+    if (username == "admin" && password == "123456") {
+      alert("登陆成功");
+    }
+
+
+
+    // 1.刚进入网页 就提示用户 输入 用户名
+    // 2. 提示用户输入密码
+    // 3. 把用户输入的用户名和密码 进行判断  如果 用户名 和密码  其中有一个 或两个 都是错误的  重新提问
+    // 4. 直到 用户输入的用户名是 admin 且 密码是 123456 输出 登陆成功
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

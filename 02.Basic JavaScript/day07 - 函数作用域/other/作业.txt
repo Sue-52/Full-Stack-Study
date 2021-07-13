@@ -1,0 +1,2 @@
+1.https://developer.mozilla.org 上mdn 查找关于 数学计算 Math
+查找  关于时间的对象的所有方法

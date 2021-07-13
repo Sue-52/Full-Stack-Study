@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    var n = Number(prompt("请输入杨辉三角的行数"));
+    document.write("<center>");//居中
+    var arr = [];         //先声明一维
+    for (var i = 0; i < n; i++) {          //一维长度
+      arr[i] = [];    //在声明二维
+      for (var j = 0; j <= i; j++) {
+        if (i == j || j == 0) {//让每一行的第一个和最后一个等于1
+          arr[i][j] = 1;
+        }
+        else {
+          arr[i][j] = arr[i - 1][j - 1] + arr[i - 1][j];
+        }
+        document.write(" " + arr[i][j] + " ");
+      }
+      document.write("<br>");
+
+    }
+
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

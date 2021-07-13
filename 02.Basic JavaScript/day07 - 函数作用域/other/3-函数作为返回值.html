@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    // 函数作为返回值 实际上就是以后要讲的闭包
+
+    // var num = function (a) {
+    //   return a;
+    // }
+
+    // console.log(num(2));
+
+
+
+    // var str = function (a) {
+    //   return a;
+    // }
+
+    // console.log(num("HeLLO"));
+
+
+    // 函数能作为返回值
+
+    var fn1 = function (fn) {
+      return fn;
+    }
+
+    var fn2 = function () {
+      console.log(1);
+    }
+    console.log(fn1(fn2))
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
