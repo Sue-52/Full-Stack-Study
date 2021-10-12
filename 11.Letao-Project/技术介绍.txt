@@ -1,0 +1,5 @@
+后端语言：KOA，koa脚手架
+服务器：腾讯云：window server 2012
+数据库：Mysql
+前端：NuxtJs
+技术：微信支付、短信验证、JWT权限校验、加密
