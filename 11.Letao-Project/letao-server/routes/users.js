@@ -1,13 +1,11 @@
-const router = require('koa-router')()
+const router = require("koa-router")();
 
-router.prefix('/users')
+const { registerCtrl } = require("../controller/userCtrl");
 
-router.get('/', function (ctx, next) {
-  ctx.body = 'this is a users response!'
-})
+router.prefix("/user");
 
-router.get('/bar', function (ctx, next) {
-  ctx.body = 'this is a users/bar response'
-})
+//#region 用户注册
+router.get("/register", registerCtrl);
+//#endregion
 
-module.exports = router
+module.exports = router;

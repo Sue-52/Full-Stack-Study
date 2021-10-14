@@ -1,19 +1,19 @@
-const router = require('koa-router')()
+const router = require("koa-router")();
+const { girdList, Banner, Sports } = require("../controller/index");
 
-router.get('/', async (ctx, next) => {
-  await ctx.render('index', {
-    title: 'Hello Koa 2!'
-  })
-})
+router.get("/", async (ctx, next) => {
+  await ctx.render("index", {
+    title: "Hello Koa 2!",
+  });
+});
 
-router.get('/string', async (ctx, next) => {
-  ctx.body = 'koa2 string'
-})
+// 1. girdList - 宫格数据
+router.get("/girdlist", girdList);
 
-router.get('/json', async (ctx, next) => {
-  ctx.body = {
-    title: 'koa2 json'
-  }
-})
+// 2. banner - 轮播图
+router.get("/banner", Banner);
 
-module.exports = router
+// 3. sportPart - 运动专区
+router.get("/sports", Sports);
+
+module.exports = router;

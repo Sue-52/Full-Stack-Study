@@ -5,9 +5,12 @@ const json = require("koa-json");
 const onerror = require("koa-onerror");
 const bodyparser = require("koa-bodyparser");
 const logger = require("koa-logger");
+// 配置动态环境部署
+require("dotenv").config();
 
 const index = require("./routes/index");
 const users = require("./routes/users");
+const category = require("./routes/category");
 
 // error handler
 onerror(app);
@@ -39,6 +42,8 @@ app.use(async (ctx, next) => {
 // routes
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
+app.use(category.routes(), category.allowedMethods());
+// app.use(category.routes());
 
 // error-handling
 app.on("error", (err, ctx) => {
