@@ -7,7 +7,10 @@ const {
 const Joi = require("joi");
 // 引入加密工具
 const { encipherment } = require("../utils/encipherment");
-const { secret } = require("../config");
+// 加密字符串
+const { secret, JWTsecret } = require("../config");
+// JWT --> Json Web Token
+const jwt = require("jsonwebtoken");
 
 //#region 创建注册路由
 module.exports.registerCtrl = async (ctx) => {
@@ -56,15 +59,34 @@ module.exports.registerCtrl = async (ctx) => {
 
 //#region 创建登录
 module.exports.loginCtrl = async (ctx) => {
+  // 获取表单数据
   const { username, password } = ctx.request.body;
-
+  // 查询数据库中时候有该用户信息
   const result = await loginModel(username, encipherment(password + secret));
-
+  // 成功则进行JWT的加密
   if (result[0]) {
+    //#region 配置 JWT token 设置
+    let token = jwt.sign(
+      {
+        // 获取用户名和密码，用于生成token
+        data: {
+          username,
+          password,
+        },
+      },
+      // 加密字符串
+      JWTsecret,
+      // token 有效时间
+      { expiresIn: 60 * 60 }
+    );
+    //#endregion
+
     ctx.body = {
       code: 200,
+      token: token,
       msg: "登陆成功",
     };
+    // 失败则返回错误
   } else {
     ctx.body = {
       code: 0,

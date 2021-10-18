@@ -5,34 +5,9 @@ const json = require("koa-json");
 const onerror = require("koa-onerror");
 const bodyparser = require("koa-bodyparser");
 const logger = require("koa-logger");
-const kowJWT = require("koa-jwt");
-const { JWTsecret } = require("./config");
-// 配置动态环境部署
-require("dotenv").config();
-
-// koa-jwt
-// Custom 401 handling if you don't want to expose koa-jwt errors to users
-app.use(function (ctx, next) {
-  return next().catch((err) => {
-    if (401 == err.status) {
-      ctx.status = 401;
-      ctx.body = "Protected resource, use Authorization header to get access\n";
-    } else {
-      throw err;
-    }
-  });
-});
-// set api without Token
-app.use(
-  kowJWT({ secret: JWTsecret }).unless({
-    path: [/^\/public/, /^\/user\/register/, /^\/user\/login/],
-  })
-);
 
 const index = require("./routes/index");
 const users = require("./routes/users");
-const category = require("./routes/category");
-const sms = require("./routes/sms");
 
 // error handler
 onerror(app);
@@ -64,9 +39,6 @@ app.use(async (ctx, next) => {
 // routes
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
-app.use(category.routes(), category.allowedMethods());
-app.use(sms.routes(), sms.allowedMethods());
-// app.use(category.routes());
 
 // error-handling
 app.on("error", (err, ctx) => {
