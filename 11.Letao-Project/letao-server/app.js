@@ -25,7 +25,7 @@ app.use(function (ctx, next) {
 // set api without Token
 app.use(
   kowJWT({ secret: JWTsecret }).unless({
-    path: [/^\/public/, /^\/user\/register/, /^\/user\/login/],
+    path: [/^\/public/, /^\/user\/register/, /^\/user\/login/, /^\/order/],
   })
 );
 
@@ -33,6 +33,7 @@ const index = require("./routes/index");
 const users = require("./routes/users");
 const category = require("./routes/category");
 const sms = require("./routes/sms");
+const order = require("./routes/order");
 
 // error handler
 onerror(app);
@@ -66,7 +67,7 @@ app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
 app.use(category.routes(), category.allowedMethods());
 app.use(sms.routes(), sms.allowedMethods());
-// app.use(category.routes());
+app.use(order.routes(), order.allowedMethods());
 
 // error-handling
 app.on("error", (err, ctx) => {
