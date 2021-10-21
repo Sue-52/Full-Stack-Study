@@ -40,7 +40,7 @@ module.exports.createSign = (args) => {
 //#endregion
 
 //#region 微信下单
-module.exports.createOrder = (url, params) => {
+module.exports.orderHandle = (url, params) => {
   return new Promise(async (resolve, reject) => {
     const data = await axios({
       url,

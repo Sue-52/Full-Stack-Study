@@ -1,8 +1,13 @@
 const mysql = require("mysql");
 
-const { config } = require("../db/config");
-
-var pool = mysql.createPool(config[process.env.DB_ENV]);
+// const { config } = require("../db/config");
+var pool = mysql.createPool({
+  connectionLimit: 10,
+  host: "localhost",
+  user: "root",
+  password: "root",
+  database: "letao",
+});
 
 //TODO 第一步：封装链接mysql数据库的请求
 module.exports.query = (sql, values) => {

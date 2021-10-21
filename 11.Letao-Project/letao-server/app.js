@@ -7,6 +7,7 @@ const bodyparser = require("koa-bodyparser");
 const logger = require("koa-logger");
 const kowJWT = require("koa-jwt");
 const { JWTsecret } = require("./config");
+const xmlParser = require("koa-xml-body");
 // 配置动态环境部署
 require("dotenv").config();
 
@@ -28,6 +29,8 @@ app.use(
     path: [/^\/public/, /^\/user\/register/, /^\/user\/login/, /^\/order/],
   })
 );
+
+app.use(xmlParser());
 
 const index = require("./routes/index");
 const users = require("./routes/users");
