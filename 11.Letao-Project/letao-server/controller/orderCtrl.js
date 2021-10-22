@@ -15,25 +15,18 @@ const QRCode = require("qrcode");
 const { orderModel } = require("../model/orderModel");
 const { query } = require("../db/query");
 
-let commonParams = {
-  nonce_str: "",
-  out_trade_no: "",
-};
-
 //#region 微信下单
 module.exports.orderCtrl = async (ctx) => {
   // 前端调用下单接口时传递的参数
   const { body, total_fee, spbill_create_ip, trade_type } = ctx.request.body;
-  commonParams.nonce_str = getRandomStr();
-  commonParams.out_trade_no = getTrade_no();
   // 生成sign需要的参数
   const params = {
     appid,
     mch_id, // 商户号
-    nonce_str: commonParams.nonce_str, // 32位以内的随机字符串
+    nonce_str: getRandomStr(), // 32位以内的随机字符串
     // sign, // 签名
     body, // 商品描述
-    out_trade_no: commonParams.out_trade_no, // 商户订单号
+    out_trade_no: getTrade_no(), // 商户订单号
     total_fee, // 金额
     spbill_create_ip, // 终端ip
     notify_url, // 微信服务器回调的地址
@@ -64,7 +57,15 @@ module.exports.orderCtrl = async (ctx) => {
     return_msg == "OK" &&
     result_code == "SUCCESS"
   ) {
+    // 把订单数据写入到payorder
+    await query(
+      `insert into payorder (appid,mch_id,nonce_str,body,out_trade_no,total_fee,spbill_create_ip,trade_type,trade_state) 
+      values ("${appid}","${mch_id}","${params.nonce_str}","${body}","${params.out_trade_no}","${total_fee}","${spbill_create_ip}","${trade_type}","NOTPAY")`
+    );
     data.payUrl = await QRCode.toDataURL(code_url);
+    // 把随机字符串 和商户订单号传给前端
+    data.nonce_str = params.nonce_str;
+    data.out_trade_no = params.out_trade_no;
   }
 
   ctx.body = {
@@ -98,27 +99,16 @@ module.exports.notifyCtrl = async (ctx) => {
     out_trade_no,
   ]);
   if (data.length) return;
-
-  const result = await orderModel(
-    appid,
-    bank_type,
-    cash_fee,
-    fee_type,
-    is_subscribe,
-    mch_id,
-    nonce_str,
-    openid,
-    out_trade_no,
-    sign,
-    time_end,
-    total_fee,
-    trade_type,
-    transaction_id
+  // 订单存在则往数据库
+  await query(
+    `insert into payorder(appid, bank_type,cash_fee,fee_type,is_subscribe,mch_id,nonce_str,openid,out_trade_no,sign,time_end,total_fee,trade_type,transaction_id) 
+    values('${appid}','${bank_type}','${cash_fee}','${fee_type}','${is_subscribe}','${mch_id}','${nonce_str}','${openid}','${out_trade_no}','${sign}','${time_end}','${total_fee}','${trade_type}','${transaction_id}')`
   );
-  ctx.body = {
-    code: 200,
-    msg: "订单信息添加成功",
-  };
+
+  ctx.body = `<xml>
+        <return_code><![CDATA[SUCCESS]]></return_code>
+        <return_msg><![CDATA[OK]]></return_msg>
+      </xml>`;
 };
 //#endregion
 
@@ -128,8 +118,8 @@ module.exports.orderNotifyCtrl = async (ctx) => {
   const params = {
     appid,
     mch_id,
-    nonce_str: commonParams.nonce_str, // 32位以内的随机字符串,
-    out_trade_no: commonParams.out_trade_no,
+    nonce_str, // 32位以内的随机字符串,
+    out_trade_no,
   };
   // 生成签名
   let sign = createSign(params);
