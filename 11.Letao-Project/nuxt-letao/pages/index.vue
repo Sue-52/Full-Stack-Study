@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Main Page</h1>
     <!-- 1. 轮播图 -->
     <IndexBannerSwiper :swiperList="banner" />
     <!-- 2.宫格组件 -->
@@ -16,16 +15,10 @@
 
 <script>
 export default {
-  async asyncData({ $axios }) {
-    const {
-      data: { msg: banner },
-    } = await $axios.get("/banner");
-    const {
-      data: { msg: girdlist },
-    } = await $axios.get("/girdlist");
-    const {
-      data: { msg: sports },
-    } = await $axios.get("/sports");
+  async asyncData({ $api }) {
+    const { msg: banner } = await $api.IndexBanner();
+    const { msg: girdlist } = await $api.IndexGirdlist();
+    const { msg: sports } = await $api.IndexSports();
     return {
       banner,
       girdlist,

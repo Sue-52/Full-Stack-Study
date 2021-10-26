@@ -18,7 +18,7 @@ export default {
   css: ["vant/lib/index.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~/plugins/vant.js"],
+  plugins: ["~/plugins/vant.js", "~/plugins/axios", "~/plugins/axios/api"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -28,6 +28,9 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ["@nuxtjs/axios", "@nuxtjs/proxy"],
+  // 使用 NuxtJs 自带的代理进行跨域访问
+  // 1. 前端跨域处理：只需在我们请求时能获取到数据；⭐
+  // 2. 后端跨域处理：会导致所有的用户都可以请求到该数据
   axios: { proxy: true, prefix: "/api" },
   proxy: {
     "/api": {
@@ -40,7 +43,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-  // 修改服务
+  // 修改服务，后台NodeJs服务为3000端口
   server: {
     ip: "localhost",
     port: 8080

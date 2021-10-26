@@ -20,7 +20,7 @@ module.exports.firstCategoryCrl = async (ctx) => {
 //#region 二级级路由
 module.exports.secondCategoryCrl = async (ctx) => {
   const { id } = ctx.request.query;
-  console.log(id);
+  // console.log(id);
   const data = await secondCategoryModel(id);
   // console.log(data);
   ctx.body = {
