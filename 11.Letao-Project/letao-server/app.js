@@ -13,22 +13,22 @@ require("dotenv").config();
 
 // koa-jwt
 // Custom 401 handling if you don't want to expose koa-jwt errors to users
-app.use(function (ctx, next) {
-  return next().catch((err) => {
-    if (401 == err.status) {
-      ctx.status = 401;
-      ctx.body = "Protected resource, use Authorization header to get access\n";
-    } else {
-      throw err;
-    }
-  });
-});
+// app.use(function (ctx, next) {
+//   return next().catch((err) => {
+//     if (401 == err.status) {
+//       ctx.status = 401;
+//       ctx.body = "Protected resource, use Authorization header to get access\n";
+//     } else {
+//       throw err;
+//     }
+//   });
+// });
 // set api without Token
-app.use(
-  kowJWT({ secret: JWTsecret }).unless({
-    path: [/^\/public/, /^\/user\/register/, /^\/user\/login/],
-  })
-);
+// app.use(
+//   kowJWT({ secret: JWTsecret }).unless({
+//     path: [/^\/public/, /^\/user\/register/, /^\/user\/login/],
+//   })
+// );
 
 app.use(xmlParser());
 

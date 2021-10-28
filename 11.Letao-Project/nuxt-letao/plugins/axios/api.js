@@ -34,6 +34,22 @@ export default function({ $request }, inject) {
      */
     SecondCategory(cid) {
       return $request.$get(`/secondCategory?id=${cid}`);
+    },
+    /**
+     * 验证码
+     * @param {*} mobile 手机号
+     * @returns
+     */
+    SendSmsCode(mobile) {
+      return $request.$post("/sendsms", { mobile });
+    },
+    /**
+     * 注册
+     * @param {*} data
+     * @returns
+     */
+    Register(data) {
+      return $request.$post("/user/register", data);
     }
   });
 }

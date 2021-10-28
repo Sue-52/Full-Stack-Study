@@ -25,6 +25,7 @@ export default {
   },
   methods: {
     async categoryHandle(index) {
+      this.$router.replace(`/category?cid=${index}`);
       // 根据选中的一级分类id加载二级分类, 默认第一个一级分类是选中
       let { msg: twoCategory } = await this.$api.SecondCategory(
         this.oneCategoryList[index]["id"]
@@ -32,8 +33,9 @@ export default {
       this.twoCategory = twoCategory;
     },
   },
-  async asyncData({ $api }) {
-    let active = 0;
+  async asyncData({ $api, query }) {
+    // console.log(typeof Number(query.cid));
+    let active = Number(query.cid) || 0;
     // 记载一级分类
     let { msg: oneCategoryList } = await $api.FirstCategory();
     // 处理一级分类数据
