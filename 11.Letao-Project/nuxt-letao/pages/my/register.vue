@@ -66,6 +66,7 @@
 <script>
 import { verify } from "~/utils";
 import { Toast } from "vant";
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -81,6 +82,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("updateUserInfo"),
     // 发送短信
     async sendSmsHandle() {
       // 调用发送短信接口
@@ -137,11 +139,12 @@ export default {
       }
 
       // 4.调用注册接口
-      const { status } = await this.$api.Register(values);
+      const { status, useInfo } = await this.$api.Register(values);
+      console.log();
       // 是否注册成功
       if (status == 200) {
         // 注册成功把用户的信息 存在vuex中
-
+        this.updateUserInfo(useInfo);
         // 跳转登录页面
         this.$router.push("/my/login");
       }

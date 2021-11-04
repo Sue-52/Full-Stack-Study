@@ -1,6 +1,14 @@
 <template>
   <div>
-    <h1>My Page</h1>
+    <van-row type="flex" justify="center">
+      <van-col span="6">用户名：</van-col>
+      <van-col span="6"></van-col>
+    </van-row>
+    <van-row type="flex" justify="center">
+      <van-col span="6">手机号：</van-col>
+      <van-col span="6"></van-col>
+    </van-row>
+    <van-button type="danger">退出登录</van-button>
   </div>
 </template>
 

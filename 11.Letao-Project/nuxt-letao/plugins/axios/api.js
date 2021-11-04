@@ -50,6 +50,14 @@ export default function({ $request }, inject) {
      */
     Register(data) {
       return $request.$post("/user/register", data);
+    },
+    /**
+     * 用户登录
+     * @param {*} data Object
+     * @returns Promise
+     */
+    Login(data) {
+      return $request.$post("/user/login", data);
     }
   });
 }
